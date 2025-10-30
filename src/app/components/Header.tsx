@@ -5,6 +5,7 @@ import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import CartDropdown from './CartDropdown';
 import { Button } from '../../components/ui/button';
+import AuthButton from './AuthButton';
 
 const Header: React.FC = () => {
   const { cartCount } = useCartStore();
@@ -59,7 +60,7 @@ const Header: React.FC = () => {
             <CartDropdown onClose={closeDropdown} />
           )}
         </div>
-        
+        <AuthButton />
       </div>
     </header>
   );
