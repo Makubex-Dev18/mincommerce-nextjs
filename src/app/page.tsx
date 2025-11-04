@@ -1,5 +1,7 @@
 import ProductList from "../app/components/ProductList";
 import Welcome from "./components/Welcome";
+import ProfilePage from "./profile/page";
+
 
 export default async function Home() {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -27,7 +29,9 @@ export default async function Home() {
     const products = await res.json();
 
     return (
+      
       <div className="pt-6 container mx-auto max-w-7xl px-4 pb-10">
+         <ProfilePage />
         <Welcome />
         <h2 className="text-3xl font-extrabold text-text-inverse text-center px-2 mb-5 mt-8">
           Catálogo de Productos

@@ -1,18 +1,21 @@
-"use client"
-import { useState, useEffect } from 'react'; // Importa useEffect
-import Link from 'next/link';
-import { ShoppingCart } from 'lucide-react';
-import { useCartStore } from '../../store/useCartStore';
-import CartDropdown from './CartDropdown';
-import { Button } from '../../components/ui/button';
-import AuthButton from './AuthButton';
+"use client";
+import { useState, useEffect } from "react"; // Importa useEffect
+import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "../../store/useCartStore";
+import CartDropdown from "./CartDropdown";
+import { Button } from "../../components/ui/button";
+import AuthButton from "./AuthButton";
+
 
 const Header: React.FC = () => {
   const { cartCount } = useCartStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   // PASO 1: Crea un estado para saber si el componente ya se montó en el cliente.
   const [hasMounted, setHasMounted] = useState(false);
+
+  
 
   // PASO 2: Usa useEffect para cambiar el estado solo después del primer renderizado en el cliente.
   useEffect(() => {
@@ -20,9 +23,9 @@ const Header: React.FC = () => {
   }, []); // El arreglo vacío asegura que solo se ejecute una vez.
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(prev => !prev);
+    setIsDropdownOpen((prev) => !prev);
   };
-  
+
   const closeDropdown = () => {
     setIsDropdownOpen(false);
   };
@@ -30,8 +33,10 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 bg-bg-app border-b border-border-default shadow-lg">
       <div className="container mx-auto max-w-7xl px-4 py-2 flex justify-between items-center">
-        
-        <Link href="/" className="text-text-dark hover:text-text-primary transition-colors">
+        <Link
+          href="/"
+          className="text-text-dark hover:text-text-primary transition-colors"
+        >
           <h1 className="text-4xl font-extrabold tracking-wider text-primary-700">
             MinCommerce
           </h1>
