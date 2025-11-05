@@ -55,7 +55,7 @@ const Header: React.FC = () => {
 
             {/* PASO 3: Solo renderiza la insignia si el componente está montado Y si hay items */}
             {hasMounted && cartCount > 0 && (
-              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[var(--color-bg-app)] transform translate-x-1/2 bg-[var(--color-secondary-500)] rounded-full">
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-bg-app transform translate-x-1/2 bg-secondary-500 rounded-full">
                 {cartCount}
               </span>
             )}
