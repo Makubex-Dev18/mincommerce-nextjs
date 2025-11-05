@@ -1,9 +1,10 @@
-import { auth } from "@/auth"
-import { NextResponse } from "next/server"
+import { auth } from "@/auth";
+import { NextResponse } from "next/server";
 
 function hasAccess(path: string, role?: string) {
-  if (path.startsWith('/admin')) return role === 'admin';
-  if (path.startsWith('/dashboard')) return ['admin', 'user'].includes(role || '');
+  if (path.startsWith("/admin")) return role === "admin";
+  if (path.startsWith("/dashboard"))
+    return ["admin", "user"].includes(role || "");
   return true;
 }
 
@@ -28,8 +29,14 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/admin/:path*", "/profile", "/login", "/dashboard/:path*", "/denied"],
-}
+  matcher: [
+    "/admin/:path*",
+    "/profile",
+    "/login",
+    "/dashboard/:path*",
+    "/denied",
+  ],
+};
 
 /*
 import { auth } from "@/auth"
@@ -50,26 +57,4 @@ export default auth((req) => {
 export const config = {
   matcher: ["/admin/:path*", "/profile", "/login"],
 }
-*/
-
-/*
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  // Permitir todas las rutas /api sin restricciones
-  if (request.nextUrl.pathname.startsWith('/api/')) {
-    return NextResponse.next();
-  }
-
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: [
-  
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
-};
-
 */
