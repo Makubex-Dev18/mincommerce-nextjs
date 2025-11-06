@@ -17,7 +17,7 @@ export default async function UsersPage() {
         <div className='flex  justify-center flex-col items-center p-2'>
             <h1 className="text-3xl font-bold mb-2">Admin - Users</h1>
             <hr />
-            <div className="container flex flex-wrap gap-2 my-2 bg-center bg-gradient-to-r from-blue-500 to-purple-500 justify-center p-4 rounded-lg">
+            <div className="max-w-md w-full mx-auto flex flex-wrap gap-2 my-2 bg-center bg-gradient-to-r from-[#74ebd5] to-[#ACB6E5] justify-center p-4 rounded-lg">
                 {users.map(user => (
                     <Card key={user.id} className="p-4">
                         <h2 className="font-bold">{user.name}</h2>

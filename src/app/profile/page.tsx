@@ -1,50 +1,77 @@
-/*
-import { auth } from "@/auth"
-import { redirect } from "next/navigation"
+
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Clock, User, Mail, Shield } from "lucide-react";
 
 export default async function ProfilePage() {
-  const session = await auth()
+  const session = await auth();
 
- if (!session) {
-    redirect("/api/auth/signin")
+  if (!session) {
+    //redirect("/api/auth/signin");
+    return(
+          <main className="flex items-center justify-center">
+        <p className="text-xl text-red-800 font-bold">No autorizado</p>
+      </main>)
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
-        <h1 className="text-2xl font-bold mb-6 text-center">Perfil del Usuario</h1>
-        
-        <div className="space-y-2">
+    <div className="container mx-auto py-4 px-4">
+      <Card className="max-w-2xl mx-auto p-5 h-120 bg-gradient-to-r from-[#4B79A1] to-[#283E51]">
+        <div className="flex flex-col items-center space-y-4">
           {session.user?.image && (
-            <div className="flex justify-center">
+            <div className="relative">
               <img 
-                src={session.user.image} 
+                src={session.user.image}
                 alt="Profile" 
-                className="w-24 h-24 rounded-full"
+                className="w-32 h-32 rounded-full border-4 border-primary-500"
               />
+              <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
             </div>
           )}
           
-          <div className="space-y-2">
-            <p className="text-gray-600">Nombre:</p>
-            <p className="font-semibold">{session.user?.name}</p>
+          <h1 className="text-3xl font-bold text-text-primary">
+            {session.user?.name}
+          </h1>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-2">             
+            <InfoCard icon={<Mail />} title="Email" value={session.user?.email} />
+            <InfoCard icon={<Shield />} title="Rol" value={session.user?.role} />
+            <InfoCard icon={<Clock />} title="Miembro desde" value={new Date().toLocaleDateString()} />
           </div>
-           
-          <div className="space-y-2">
-            <p className="text-gray-600">Id:</p>
-            <p className="font-semibold">{session.user?.id}</p>
-          </div>
-          
-          <div className="space-y-2">
-            <p className="text-gray-600">Email:</p>
-            <p className="font-semibold">{session.user?.email}</p>
+
+          <div className="flex gap-4 mt-6">
+            <Button >
+              <Link href="/">Ir al Catálogo</Link>
+            </Button>
+            {session.user?.role === "admin" && (
+              <Button variant="secondary" >
+                <Link href="/admin/users">Panel Admin</Link>
+              </Button>
+            )}
           </div>
         </div>
+      </Card>
+    </div>
+  );
+}
+
+function InfoCard({ icon, title, value }: { icon: React.ReactNode, title: string, value?: string }) {
+  return (
+    <div className="flex items-center space-x-3 p-3 bg-bg-card rounded-lg border border-border-default">
+      <div className="text-primary-500">
+        {icon}
+      </div>
+      <div>
+        <p className="text-sm text-text-secondary">{title}</p>
+        <p className="font-medium text-text-primary">{value}</p>
       </div>
     </div>
-  )
+  );
 }
-*/
+/*
 
 import { auth } from "@/auth";
 
@@ -65,7 +92,7 @@ export default async function ProfilePage() {
          {session.user?.image && (
             <div className="flex justify-center">
               <img 
-                src={session.user.image} 
+                src={`${session.user.image}`}
                 alt="Profile" 
                 className="w-24 h-24 rounded-full"
               />
@@ -79,3 +106,4 @@ export default async function ProfilePage() {
     </section>
   );
 }
+*/
