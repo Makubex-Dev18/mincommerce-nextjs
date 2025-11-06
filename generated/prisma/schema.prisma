@@ -39,12 +39,13 @@ model OrderItem {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String    @unique
+  email         String       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
+  sessionLogs   SessionLog[] // Nueva relación
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,4 +70,16 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
+}
+
+model SessionLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String // 'login' o 'logout'
+  provider  String?
+  timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session_logs")
 }

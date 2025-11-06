@@ -171,6 +171,14 @@ exports.Prisma.AccountScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SessionLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  provider: 'provider',
+  timestamp: 'timestamp'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -192,7 +200,8 @@ exports.Prisma.ModelName = {
   Order: 'Order',
   OrderItem: 'OrderItem',
   User: 'User',
-  Account: 'Account'
+  Account: 'Account',
+  SessionLog: 'SessionLog'
 };
 
 /**

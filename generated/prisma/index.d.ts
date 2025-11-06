@@ -38,6 +38,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
+/**
+ * Model SessionLog
+ * 
+ */
+export type SessionLog = $Result.DefaultSelection<Prisma.$SessionLogPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -206,6 +211,16 @@ export class PrismaClient<
     * ```
     */
   get account(): Prisma.AccountDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessionLog`: Exposes CRUD operations for the **SessionLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SessionLogs
+    * const sessionLogs = await prisma.sessionLog.findMany()
+    * ```
+    */
+  get sessionLog(): Prisma.SessionLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -651,7 +666,8 @@ export namespace Prisma {
     Order: 'Order',
     OrderItem: 'OrderItem',
     User: 'User',
-    Account: 'Account'
+    Account: 'Account',
+    SessionLog: 'SessionLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -670,7 +686,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "product" | "order" | "orderItem" | "user" | "account"
+      modelProps: "product" | "order" | "orderItem" | "user" | "account" | "sessionLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1044,6 +1060,80 @@ export namespace Prisma {
           }
         }
       }
+      SessionLog: {
+        payload: Prisma.$SessionLogPayload<ExtArgs>
+        fields: Prisma.SessionLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SessionLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SessionLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>
+          }
+          findFirst: {
+            args: Prisma.SessionLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SessionLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>
+          }
+          findMany: {
+            args: Prisma.SessionLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>[]
+          }
+          create: {
+            args: Prisma.SessionLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>
+          }
+          createMany: {
+            args: Prisma.SessionLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SessionLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>[]
+          }
+          delete: {
+            args: Prisma.SessionLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>
+          }
+          update: {
+            args: Prisma.SessionLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.SessionLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SessionLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SessionLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.SessionLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionLogPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessionLog>
+          }
+          groupBy: {
+            args: Prisma.SessionLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SessionLogCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1145,6 +1235,7 @@ export namespace Prisma {
     orderItem?: OrderItemOmit
     user?: UserOmit
     account?: AccountOmit
+    sessionLog?: SessionLogOmit
   }
 
   /* Types for Logging */
@@ -1288,10 +1379,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     accounts: number
+    sessionLogs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+    sessionLogs?: boolean | UserCountOutputTypeCountSessionLogsArgs
   }
 
   // Custom InputTypes
@@ -1310,6 +1403,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionLogWhereInput
   }
 
 
@@ -4843,6 +4943,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
+    sessionLogs?: boolean | User$sessionLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4879,6 +4980,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
+    sessionLogs?: boolean | User$sessionLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4888,6 +4990,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
+      sessionLogs: Prisma.$SessionLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5292,6 +5395,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sessionLogs<T extends User$sessionLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5737,6 +5841,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
+   * User.sessionLogs
+   */
+  export type User$sessionLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    where?: SessionLogWhereInput
+    orderBy?: SessionLogOrderByWithRelationInput | SessionLogOrderByWithRelationInput[]
+    cursor?: SessionLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionLogScalarFieldEnum | SessionLogScalarFieldEnum[]
   }
 
   /**
@@ -6955,6 +7083,1064 @@ export namespace Prisma {
 
 
   /**
+   * Model SessionLog
+   */
+
+  export type AggregateSessionLog = {
+    _count: SessionLogCountAggregateOutputType | null
+    _min: SessionLogMinAggregateOutputType | null
+    _max: SessionLogMaxAggregateOutputType | null
+  }
+
+  export type SessionLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    action: string | null
+    provider: string | null
+    timestamp: Date | null
+  }
+
+  export type SessionLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    action: string | null
+    provider: string | null
+    timestamp: Date | null
+  }
+
+  export type SessionLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    action: number
+    provider: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type SessionLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    provider?: true
+    timestamp?: true
+  }
+
+  export type SessionLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    provider?: true
+    timestamp?: true
+  }
+
+  export type SessionLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    provider?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type SessionLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionLog to aggregate.
+     */
+    where?: SessionLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionLogs to fetch.
+     */
+    orderBy?: SessionLogOrderByWithRelationInput | SessionLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SessionLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SessionLogs
+    **/
+    _count?: true | SessionLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionLogMaxAggregateInputType
+  }
+
+  export type GetSessionLogAggregateType<T extends SessionLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessionLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessionLog[P]>
+      : GetScalarType<T[P], AggregateSessionLog[P]>
+  }
+
+
+
+
+  export type SessionLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionLogWhereInput
+    orderBy?: SessionLogOrderByWithAggregationInput | SessionLogOrderByWithAggregationInput[]
+    by: SessionLogScalarFieldEnum[] | SessionLogScalarFieldEnum
+    having?: SessionLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionLogCountAggregateInputType | true
+    _min?: SessionLogMinAggregateInputType
+    _max?: SessionLogMaxAggregateInputType
+  }
+
+  export type SessionLogGroupByOutputType = {
+    id: string
+    userId: string
+    action: string
+    provider: string | null
+    timestamp: Date
+    _count: SessionLogCountAggregateOutputType | null
+    _min: SessionLogMinAggregateOutputType | null
+    _max: SessionLogMaxAggregateOutputType | null
+  }
+
+  type GetSessionLogGroupByPayload<T extends SessionLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionLogGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SessionLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    provider?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionLog"]>
+
+  export type SessionLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    provider?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionLog"]>
+
+  export type SessionLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    provider?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionLog"]>
+
+  export type SessionLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    provider?: boolean
+    timestamp?: boolean
+  }
+
+  export type SessionLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "action" | "provider" | "timestamp", ExtArgs["result"]["sessionLog"]>
+  export type SessionLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SessionLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SessionLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SessionLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SessionLog"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      action: string
+      provider: string | null
+      timestamp: Date
+    }, ExtArgs["result"]["sessionLog"]>
+    composites: {}
+  }
+
+  type SessionLogGetPayload<S extends boolean | null | undefined | SessionLogDefaultArgs> = $Result.GetResult<Prisma.$SessionLogPayload, S>
+
+  type SessionLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SessionLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionLogCountAggregateInputType | true
+    }
+
+  export interface SessionLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SessionLog'], meta: { name: 'SessionLog' } }
+    /**
+     * Find zero or one SessionLog that matches the filter.
+     * @param {SessionLogFindUniqueArgs} args - Arguments to find a SessionLog
+     * @example
+     * // Get one SessionLog
+     * const sessionLog = await prisma.sessionLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SessionLogFindUniqueArgs>(args: SelectSubset<T, SessionLogFindUniqueArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SessionLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SessionLogFindUniqueOrThrowArgs} args - Arguments to find a SessionLog
+     * @example
+     * // Get one SessionLog
+     * const sessionLog = await prisma.sessionLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SessionLogFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SessionLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogFindFirstArgs} args - Arguments to find a SessionLog
+     * @example
+     * // Get one SessionLog
+     * const sessionLog = await prisma.sessionLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SessionLogFindFirstArgs>(args?: SelectSubset<T, SessionLogFindFirstArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SessionLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogFindFirstOrThrowArgs} args - Arguments to find a SessionLog
+     * @example
+     * // Get one SessionLog
+     * const sessionLog = await prisma.sessionLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SessionLogFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SessionLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SessionLogs
+     * const sessionLogs = await prisma.sessionLog.findMany()
+     * 
+     * // Get first 10 SessionLogs
+     * const sessionLogs = await prisma.sessionLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sessionLogWithIdOnly = await prisma.sessionLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SessionLogFindManyArgs>(args?: SelectSubset<T, SessionLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SessionLog.
+     * @param {SessionLogCreateArgs} args - Arguments to create a SessionLog.
+     * @example
+     * // Create one SessionLog
+     * const SessionLog = await prisma.sessionLog.create({
+     *   data: {
+     *     // ... data to create a SessionLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends SessionLogCreateArgs>(args: SelectSubset<T, SessionLogCreateArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SessionLogs.
+     * @param {SessionLogCreateManyArgs} args - Arguments to create many SessionLogs.
+     * @example
+     * // Create many SessionLogs
+     * const sessionLog = await prisma.sessionLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SessionLogCreateManyArgs>(args?: SelectSubset<T, SessionLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SessionLogs and returns the data saved in the database.
+     * @param {SessionLogCreateManyAndReturnArgs} args - Arguments to create many SessionLogs.
+     * @example
+     * // Create many SessionLogs
+     * const sessionLog = await prisma.sessionLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SessionLogs and only return the `id`
+     * const sessionLogWithIdOnly = await prisma.sessionLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SessionLogCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SessionLog.
+     * @param {SessionLogDeleteArgs} args - Arguments to delete one SessionLog.
+     * @example
+     * // Delete one SessionLog
+     * const SessionLog = await prisma.sessionLog.delete({
+     *   where: {
+     *     // ... filter to delete one SessionLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SessionLogDeleteArgs>(args: SelectSubset<T, SessionLogDeleteArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SessionLog.
+     * @param {SessionLogUpdateArgs} args - Arguments to update one SessionLog.
+     * @example
+     * // Update one SessionLog
+     * const sessionLog = await prisma.sessionLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SessionLogUpdateArgs>(args: SelectSubset<T, SessionLogUpdateArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SessionLogs.
+     * @param {SessionLogDeleteManyArgs} args - Arguments to filter SessionLogs to delete.
+     * @example
+     * // Delete a few SessionLogs
+     * const { count } = await prisma.sessionLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SessionLogDeleteManyArgs>(args?: SelectSubset<T, SessionLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SessionLogs
+     * const sessionLog = await prisma.sessionLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SessionLogUpdateManyArgs>(args: SelectSubset<T, SessionLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionLogs and returns the data updated in the database.
+     * @param {SessionLogUpdateManyAndReturnArgs} args - Arguments to update many SessionLogs.
+     * @example
+     * // Update many SessionLogs
+     * const sessionLog = await prisma.sessionLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SessionLogs and only return the `id`
+     * const sessionLogWithIdOnly = await prisma.sessionLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SessionLogUpdateManyAndReturnArgs>(args: SelectSubset<T, SessionLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SessionLog.
+     * @param {SessionLogUpsertArgs} args - Arguments to update or create a SessionLog.
+     * @example
+     * // Update or create a SessionLog
+     * const sessionLog = await prisma.sessionLog.upsert({
+     *   create: {
+     *     // ... data to create a SessionLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SessionLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SessionLogUpsertArgs>(args: SelectSubset<T, SessionLogUpsertArgs<ExtArgs>>): Prisma__SessionLogClient<$Result.GetResult<Prisma.$SessionLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SessionLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogCountArgs} args - Arguments to filter SessionLogs to count.
+     * @example
+     * // Count the number of SessionLogs
+     * const count = await prisma.sessionLog.count({
+     *   where: {
+     *     // ... the filter for the SessionLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends SessionLogCountArgs>(
+      args?: Subset<T, SessionLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SessionLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionLogAggregateArgs>(args: Subset<T, SessionLogAggregateArgs>): Prisma.PrismaPromise<GetSessionLogAggregateType<T>>
+
+    /**
+     * Group by SessionLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SessionLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SessionLogGroupByArgs['orderBy'] }
+        : { orderBy?: SessionLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SessionLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SessionLog model
+   */
+  readonly fields: SessionLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SessionLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SessionLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SessionLog model
+   */
+  interface SessionLogFieldRefs {
+    readonly id: FieldRef<"SessionLog", 'String'>
+    readonly userId: FieldRef<"SessionLog", 'String'>
+    readonly action: FieldRef<"SessionLog", 'String'>
+    readonly provider: FieldRef<"SessionLog", 'String'>
+    readonly timestamp: FieldRef<"SessionLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SessionLog findUnique
+   */
+  export type SessionLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionLog to fetch.
+     */
+    where: SessionLogWhereUniqueInput
+  }
+
+  /**
+   * SessionLog findUniqueOrThrow
+   */
+  export type SessionLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionLog to fetch.
+     */
+    where: SessionLogWhereUniqueInput
+  }
+
+  /**
+   * SessionLog findFirst
+   */
+  export type SessionLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionLog to fetch.
+     */
+    where?: SessionLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionLogs to fetch.
+     */
+    orderBy?: SessionLogOrderByWithRelationInput | SessionLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionLogs.
+     */
+    cursor?: SessionLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionLogs.
+     */
+    distinct?: SessionLogScalarFieldEnum | SessionLogScalarFieldEnum[]
+  }
+
+  /**
+   * SessionLog findFirstOrThrow
+   */
+  export type SessionLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionLog to fetch.
+     */
+    where?: SessionLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionLogs to fetch.
+     */
+    orderBy?: SessionLogOrderByWithRelationInput | SessionLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionLogs.
+     */
+    cursor?: SessionLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionLogs.
+     */
+    distinct?: SessionLogScalarFieldEnum | SessionLogScalarFieldEnum[]
+  }
+
+  /**
+   * SessionLog findMany
+   */
+  export type SessionLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionLogs to fetch.
+     */
+    where?: SessionLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionLogs to fetch.
+     */
+    orderBy?: SessionLogOrderByWithRelationInput | SessionLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SessionLogs.
+     */
+    cursor?: SessionLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionLogs.
+     */
+    skip?: number
+    distinct?: SessionLogScalarFieldEnum | SessionLogScalarFieldEnum[]
+  }
+
+  /**
+   * SessionLog create
+   */
+  export type SessionLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SessionLog.
+     */
+    data: XOR<SessionLogCreateInput, SessionLogUncheckedCreateInput>
+  }
+
+  /**
+   * SessionLog createMany
+   */
+  export type SessionLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SessionLogs.
+     */
+    data: SessionLogCreateManyInput | SessionLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SessionLog createManyAndReturn
+   */
+  export type SessionLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many SessionLogs.
+     */
+    data: SessionLogCreateManyInput | SessionLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SessionLog update
+   */
+  export type SessionLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SessionLog.
+     */
+    data: XOR<SessionLogUpdateInput, SessionLogUncheckedUpdateInput>
+    /**
+     * Choose, which SessionLog to update.
+     */
+    where: SessionLogWhereUniqueInput
+  }
+
+  /**
+   * SessionLog updateMany
+   */
+  export type SessionLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SessionLogs.
+     */
+    data: XOR<SessionLogUpdateManyMutationInput, SessionLogUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionLogs to update
+     */
+    where?: SessionLogWhereInput
+    /**
+     * Limit how many SessionLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionLog updateManyAndReturn
+   */
+  export type SessionLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * The data used to update SessionLogs.
+     */
+    data: XOR<SessionLogUpdateManyMutationInput, SessionLogUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionLogs to update
+     */
+    where?: SessionLogWhereInput
+    /**
+     * Limit how many SessionLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SessionLog upsert
+   */
+  export type SessionLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SessionLog to update in case it exists.
+     */
+    where: SessionLogWhereUniqueInput
+    /**
+     * In case the SessionLog found by the `where` argument doesn't exist, create a new SessionLog with this data.
+     */
+    create: XOR<SessionLogCreateInput, SessionLogUncheckedCreateInput>
+    /**
+     * In case the SessionLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SessionLogUpdateInput, SessionLogUncheckedUpdateInput>
+  }
+
+  /**
+   * SessionLog delete
+   */
+  export type SessionLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+    /**
+     * Filter which SessionLog to delete.
+     */
+    where: SessionLogWhereUniqueInput
+  }
+
+  /**
+   * SessionLog deleteMany
+   */
+  export type SessionLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionLogs to delete
+     */
+    where?: SessionLogWhereInput
+    /**
+     * Limit how many SessionLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionLog without action
+   */
+  export type SessionLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionLog
+     */
+    select?: SessionLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionLog
+     */
+    omit?: SessionLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7032,6 +8218,17 @@ export namespace Prisma {
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+  export const SessionLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    action: 'action',
+    provider: 'provider',
+    timestamp: 'timestamp'
+  };
+
+  export type SessionLogScalarFieldEnum = (typeof SessionLogScalarFieldEnum)[keyof typeof SessionLogScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7313,6 +8510,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     accounts?: AccountListRelationFilter
+    sessionLogs?: SessionLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7324,6 +8522,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
+    sessionLogs?: SessionLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7338,6 +8537,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     accounts?: AccountListRelationFilter
+    sessionLogs?: SessionLogListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7462,6 +8662,61 @@ export namespace Prisma {
     session_state?: StringNullableWithAggregatesFilter<"Account"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
+  }
+
+  export type SessionLogWhereInput = {
+    AND?: SessionLogWhereInput | SessionLogWhereInput[]
+    OR?: SessionLogWhereInput[]
+    NOT?: SessionLogWhereInput | SessionLogWhereInput[]
+    id?: StringFilter<"SessionLog"> | string
+    userId?: StringFilter<"SessionLog"> | string
+    action?: StringFilter<"SessionLog"> | string
+    provider?: StringNullableFilter<"SessionLog"> | string | null
+    timestamp?: DateTimeFilter<"SessionLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SessionLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SessionLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SessionLogWhereInput | SessionLogWhereInput[]
+    OR?: SessionLogWhereInput[]
+    NOT?: SessionLogWhereInput | SessionLogWhereInput[]
+    userId?: StringFilter<"SessionLog"> | string
+    action?: StringFilter<"SessionLog"> | string
+    provider?: StringNullableFilter<"SessionLog"> | string | null
+    timestamp?: DateTimeFilter<"SessionLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type SessionLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    _count?: SessionLogCountOrderByAggregateInput
+    _max?: SessionLogMaxOrderByAggregateInput
+    _min?: SessionLogMinOrderByAggregateInput
+  }
+
+  export type SessionLogScalarWhereWithAggregatesInput = {
+    AND?: SessionLogScalarWhereWithAggregatesInput | SessionLogScalarWhereWithAggregatesInput[]
+    OR?: SessionLogScalarWhereWithAggregatesInput[]
+    NOT?: SessionLogScalarWhereWithAggregatesInput | SessionLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SessionLog"> | string
+    userId?: StringWithAggregatesFilter<"SessionLog"> | string
+    action?: StringWithAggregatesFilter<"SessionLog"> | string
+    provider?: StringNullableWithAggregatesFilter<"SessionLog"> | string | null
+    timestamp?: DateTimeWithAggregatesFilter<"SessionLog"> | Date | string
   }
 
   export type ProductCreateInput = {
@@ -7645,6 +8900,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
+    sessionLogs?: SessionLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7656,6 +8912,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessionLogs?: SessionLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7667,6 +8924,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessionLogs?: SessionLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7678,6 +8936,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessionLogs?: SessionLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7819,6 +9078,61 @@ export namespace Prisma {
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionLogCreateInput = {
+    id?: string
+    action: string
+    provider?: string | null
+    timestamp?: Date | string
+    user: UserCreateNestedOneWithoutSessionLogsInput
+  }
+
+  export type SessionLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    action: string
+    provider?: string | null
+    timestamp?: Date | string
+  }
+
+  export type SessionLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSessionLogsNestedInput
+  }
+
+  export type SessionLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionLogCreateManyInput = {
+    id?: string
+    userId: string
+    action: string
+    provider?: string | null
+    timestamp?: Date | string
+  }
+
+  export type SessionLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -8096,12 +9410,22 @@ export namespace Prisma {
     none?: AccountWhereInput
   }
 
+  export type SessionLogListRelationFilter = {
+    every?: SessionLogWhereInput
+    some?: SessionLogWhereInput
+    none?: SessionLogWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type AccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8260,6 +9584,30 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type SessionLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    provider?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type SessionLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    provider?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type SessionLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    provider?: SortOrder
+    timestamp?: SortOrder
+  }
+
   export type OrderItemCreateNestedManyWithoutProductInput = {
     create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
@@ -8403,11 +9751,25 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
+  export type SessionLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionLogCreateWithoutUserInput, SessionLogUncheckedCreateWithoutUserInput> | SessionLogCreateWithoutUserInput[] | SessionLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionLogCreateOrConnectWithoutUserInput | SessionLogCreateOrConnectWithoutUserInput[]
+    createMany?: SessionLogCreateManyUserInputEnvelope
+    connect?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
     createMany?: AccountCreateManyUserInputEnvelope
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type SessionLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionLogCreateWithoutUserInput, SessionLogUncheckedCreateWithoutUserInput> | SessionLogCreateWithoutUserInput[] | SessionLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionLogCreateOrConnectWithoutUserInput | SessionLogCreateOrConnectWithoutUserInput[]
+    createMany?: SessionLogCreateManyUserInputEnvelope
+    connect?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -8432,6 +9794,20 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
+  export type SessionLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionLogCreateWithoutUserInput, SessionLogUncheckedCreateWithoutUserInput> | SessionLogCreateWithoutUserInput[] | SessionLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionLogCreateOrConnectWithoutUserInput | SessionLogCreateOrConnectWithoutUserInput[]
+    upsert?: SessionLogUpsertWithWhereUniqueWithoutUserInput | SessionLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionLogCreateManyUserInputEnvelope
+    set?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    disconnect?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    delete?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    connect?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    update?: SessionLogUpdateWithWhereUniqueWithoutUserInput | SessionLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionLogUpdateManyWithWhereWithoutUserInput | SessionLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionLogScalarWhereInput | SessionLogScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -8444,6 +9820,20 @@ export namespace Prisma {
     update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
+  export type SessionLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionLogCreateWithoutUserInput, SessionLogUncheckedCreateWithoutUserInput> | SessionLogCreateWithoutUserInput[] | SessionLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionLogCreateOrConnectWithoutUserInput | SessionLogCreateOrConnectWithoutUserInput[]
+    upsert?: SessionLogUpsertWithWhereUniqueWithoutUserInput | SessionLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionLogCreateManyUserInputEnvelope
+    set?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    disconnect?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    delete?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    connect?: SessionLogWhereUniqueInput | SessionLogWhereUniqueInput[]
+    update?: SessionLogUpdateWithWhereUniqueWithoutUserInput | SessionLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionLogUpdateManyWithWhereWithoutUserInput | SessionLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionLogScalarWhereInput | SessionLogScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -8466,6 +9856,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAccountsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type UserCreateNestedOneWithoutSessionLogsInput = {
+    create?: XOR<UserCreateWithoutSessionLogsInput, UserUncheckedCreateWithoutSessionLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSessionLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSessionLogsNestedInput = {
+    create?: XOR<UserCreateWithoutSessionLogsInput, UserUncheckedCreateWithoutSessionLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSessionLogsInput
+    upsert?: UserUpsertWithoutSessionLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionLogsInput, UserUpdateWithoutSessionLogsInput>, UserUncheckedUpdateWithoutSessionLogsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8896,6 +10300,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SessionLogCreateWithoutUserInput = {
+    id?: string
+    action: string
+    provider?: string | null
+    timestamp?: Date | string
+  }
+
+  export type SessionLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    action: string
+    provider?: string | null
+    timestamp?: Date | string
+  }
+
+  export type SessionLogCreateOrConnectWithoutUserInput = {
+    where: SessionLogWhereUniqueInput
+    create: XOR<SessionLogCreateWithoutUserInput, SessionLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionLogCreateManyUserInputEnvelope = {
+    data: SessionLogCreateManyUserInput | SessionLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -8931,6 +10359,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string
   }
 
+  export type SessionLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: SessionLogWhereUniqueInput
+    update: XOR<SessionLogUpdateWithoutUserInput, SessionLogUncheckedUpdateWithoutUserInput>
+    create: XOR<SessionLogCreateWithoutUserInput, SessionLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: SessionLogWhereUniqueInput
+    data: XOR<SessionLogUpdateWithoutUserInput, SessionLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SessionLogUpdateManyWithWhereWithoutUserInput = {
+    where: SessionLogScalarWhereInput
+    data: XOR<SessionLogUpdateManyMutationInput, SessionLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SessionLogScalarWhereInput = {
+    AND?: SessionLogScalarWhereInput | SessionLogScalarWhereInput[]
+    OR?: SessionLogScalarWhereInput[]
+    NOT?: SessionLogScalarWhereInput | SessionLogScalarWhereInput[]
+    id?: StringFilter<"SessionLog"> | string
+    userId?: StringFilter<"SessionLog"> | string
+    action?: StringFilter<"SessionLog"> | string
+    provider?: StringNullableFilter<"SessionLog"> | string | null
+    timestamp?: DateTimeFilter<"SessionLog"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -8939,6 +10394,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sessionLogs?: SessionLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -8949,6 +10405,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sessionLogs?: SessionLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -8975,6 +10432,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessionLogs?: SessionLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -8985,6 +10443,67 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessionLogs?: SessionLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSessionLogsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSessionLogsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSessionLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSessionLogsInput, UserUncheckedCreateWithoutSessionLogsInput>
+  }
+
+  export type UserUpsertWithoutSessionLogsInput = {
+    update: XOR<UserUpdateWithoutSessionLogsInput, UserUncheckedUpdateWithoutSessionLogsInput>
+    create: XOR<UserCreateWithoutSessionLogsInput, UserUncheckedCreateWithoutSessionLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSessionLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSessionLogsInput, UserUncheckedUpdateWithoutSessionLogsInput>
+  }
+
+  export type UserUpdateWithoutSessionLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSessionLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderItemCreateManyProductInput = {
@@ -9048,6 +10567,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SessionLogCreateManyUserInput = {
+    id?: string
+    action: string
+    provider?: string | null
+    timestamp?: Date | string
+  }
+
   export type AccountUpdateWithoutUserInput = {
     type?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
@@ -9091,6 +10617,27 @@ export namespace Prisma {
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
